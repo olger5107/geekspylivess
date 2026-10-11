@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Happy Birthday, Tanu 💖</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink: #ff8fb1;
+    --gold: #ffd6a5;
+    --violet: #c084fc;
+    --cream: #fff1f6;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body { height: 100%; overflow: hidden; }
+
+  body {
+    font-family: 'Quicksand', system-ui, -apple-system, sans-serif;
+    color: var(--cream);
+    background: radial-gradient(circle at 18% 8%, #4a1350 0%, transparent 55%),
+                radial-gradient(circle at 85% 18%, #7a1f4d 0%, transparent 50%),
+                radial-gradient(circle at 50% 105%, #2b0b3a 0%, transparent 60%),
+                linear-gradient(160deg, #1a0726, #2a0b3d 45%, #14061c);
+    display: grid;
+    place-items: center;
+    padding: 20px;
+  }
+
+  /* ---------- Background Effects ---------- */
+  #hearts { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+  .heart {
+    position: fixed; bottom: -12vh;
+    animation: floatUp linear forwards;
+    will-change: transform;
+    filter: drop-shadow(0 0 8px rgba(255,143,177,.5));
+  }
+  @keyframes floatUp {
+    from { transform: translateY(0) rotate(0deg); }
+    to   { transform: translateY(-125vh) rotate(320deg); }
+  }
+
+  #fx { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 10; }
+
+  /* ---------- Main Container ---------- */
+  .app-container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 600px;
+    height: 100vh;
+    max-height: 850px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* ---------- Slide System ---------- */
+  .slide {
+    display: none;
+    width: 100%;
+    animation: slideFadeIn 0.8s cubic-bezier(0.2, 1.25, 0.4, 1) forwards;
+    text-align: center;
+  }
+
+  .slide.active {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @keyframes slideFadeIn {
+    from { opacity: 0; transform: translateY(30px) scale(0.95); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  /* ---------- Cards ---------- */
+  .card {
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    backdrop-filter: blur(20px) saturate(150%);
+    -webkit-backdrop-filter: blur(20px) saturate(150%);
+    border-radius: 30px;
+    padding: 35px 25px;
+    width: 100%;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  /* ---------- Typography ---------- */
+  .cake {
+    font-size: 60px;
+    line-height: 1;
+    animation: bob 2.4s ease-in-out infinite;
+    display: inline-block;
+  }
+  @keyframes bob {
+    0%, 100% { transform: translateY(0) rotate(-3deg); }
+    50%      { transform: translateY(-10px) rotate(3deg); }
+  }
+
+  .eyebrow {
+    font-size: 14px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: rgba(255, 241, 246, 0.7);
+  }
+
+  .name {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(60px, 15vw, 90px);
+    line-height: 1.1;
+    background: linear-gradient(110deg, #ffd6a5 10%, #ff8fb1 40%, #c084fc 70%, #ffd6a5 100%);
+    background-size: 250% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shimmer 6s linear infinite;
+    margin: 10px 0;
+  }
+  @keyframes shimmer {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 250% 50%; }
+  }
+
+  .question-text {
+    font-size: clamp(20px, 5vw, 26px);
+    font-weight: 700;
+    line-height: 1.5;
+    color: var(--cream);
+    margin-bottom: 10px;
+  }
+
+  .msg-text {
+    font-size: clamp(16px, 4vw, 19px);
+    line-height: 1.8;
+    font-weight: 500;
+    color: #ffe9f3;
+    text-wrap: pretty;
+  }
+
+  /* ---------- Photo Frame ---------- */
+  .photo-frame {
+    width: 100%;
+    max-width: 280px;
+    height: 240px;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 4px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    /* Fallback background in case image doesn't load */
+    background: linear-gradient(135deg, #4a1350, #2a0b3d); 
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .photo-frame img.loaded {
+    opacity: 1;
+  }
+
+  /* Loading text inside frame */
+  .photo-frame::after {
+    content: '✨ Loading magic...';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.5);
+    pointer-events: none;
+  }
+
+  .photo-frame img.loaded + .photo-frame::after,
+  .photo-frame img.loaded ~ .photo-frame::after {
+    display: none;
+  }
+
+  /* ---------- Buttons ---------- */
+  .btn-group {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .btn {
+    padding: 15px 30px;
+    border: 0;
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    flex: 1;
+    max-width: 160px;
+  }
+
+  .btn-yes {
+    background: linear-gradient(120deg, #ff9f68, #ff6fa5);
+    color: #31091c;
+    box-shadow: 0 10px 25px rgba(255, 111, 165, 0.4);
+  }
+  .btn-yes:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 15px 35px rgba(255, 111, 165, 0.6);
+  }
+
+  .btn-no {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--cream);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  .btn-no:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+  }
+
+  .btn-next {
+    margin-top: 15px;
+    padding: 15px 40px;
+    border-radius: 999px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #31091c;
+    background: linear-gradient(120deg, #ffd6a5, #ff8fb1);
+    box-shadow: 0 10px 30px rgba(255, 143, 177, 0.4);
+    cursor: pointer;
+    border: 0;
+    transition: all 0.25s ease;
+  }
+  .btn-next:hover {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 15px 40px rgba(255, 143, 177, 0.6);
+  }
+
+  .btn:active, .btn-next:active { transform: scale(0.97); }
+
+  /* ---------- Progress Dots ---------- */
+  .progress-dots {
+    display: flex;
+    gap: 8px;
+    margin-top: 20px;
+    justify-content: center;
+  }
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: all 0.4s ease;
+  }
+  .dot.active {
+    background: var(--pink);
+    transform: scale(1.4);
+    box-shadow: 0 0 10px var(--pink);
+  }
+
+  /* ---------- Playful No Button Effect ---------- */
+  .playful-msg {
+    font-size: 14px;
+    color: var(--gold);
+    margin-top: 10px;
+    font-weight: 600;
+    animation: popIn 0.4s ease;
+  }
+  @keyframes popIn {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  @media (max-width: 480px) {
+    .card { padding: 25px 15px; border-radius: 20px; }
+    .photo-frame { height: 200px; max-width: 100%; }
+    .btn-group { flex-direction: column; }
+    .btn { max-width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+  <div id="hearts"></div>
+  <canvas id="fx"></canvas>
+
+  <div class="app-container" id="app">
+    <!-- Slides will be injected by JavaScript -->
+  </div>
+
+<script>
+/* ============================================================
+   DATA: Questions and Messages
+   ============================================================ */
+/* 
+   🎨 HOW THE ANIME IMAGES WORK:
+   I have used a public anime API to fetch cute couple illustrations.
+   The categories are:
+   - hug: Cute anime couple hugging
+   - handhold: Couple holding hands
+   - happy: Couple smiling/happy together
+   - kiss: Couple kissing
+   - cuddle: Cuddling
+   - pat: Headpats
+   
+   If you want to use your own AI-generated anime images instead:
+   Simply save them as photo1.jpg, photo2.jpg, photo3.jpg in this folder,
+   and replace `imgCategory: 'hug'` with `img: 'photo1.jpg'` in the steps below.
+*/
+
+const steps = [
+  // --- INTRO ---
+  {
+    type: 'intro',
+    emoji: '🎂',
+    title: 'Happy Birthday',
+    name: 'Tanu',
+    subtitle: 'A little something I made, just for you. Let\'s play a quick game first...',
+    btnText: 'Start the Journey 💝'
+  },
+  
+  // --- QUESTION 1 ---
+  {
+    type: 'question',
+    question: 'Do you love Jitu?',
+    imgCategory: 'hug', // Anime couple hugging
+    yesText: 'Yes, I do! 💖',
+    noText: 'No 🙈'
+  },
+
+  // --- QUESTION 2 ---
+  {
+    type: 'question',
+    question: 'You look good together?',
+    imgCategory: 'handhold', // Anime couple holding hands
+    yesText: 'Yes, we do! ✨',
+    noText: 'No 😜'
+  },
+
+  // --- QUESTION 3 ---
+  {
+    type: 'question',
+    question: 'You want to spend your next birthday with him?',
+    imgCategory: 'happy', // Anime couple happy
+    yesText: 'Yes, absolutely! 🎂',
+    noText: 'Maybe not 🤔'
+  },
+
+  // --- MESSAGES (Unlocked after questions) ---
+  {
+    type: 'message',
+    emoji: '🌸',
+    text: 'Tanu… do you have any idea how beautiful you are? Not just the way you look — though you take my breath away — but the way you care, the way you laugh, the way you make everything around you softer.',
+    imgCategory: 'kiss'
+  },
+  {
+    type: 'message',
+    emoji: '☀️',
+    text: 'I\'m grateful for every ordinary morning that turns extraordinary just because you\'re in it. Your voice, your warmth, your hand finding mine without even looking.',
+    imgCategory: 'handhold'
+  },
+  {
+    type: 'message',
+    emoji: '💫',
+    text: 'Thank you for choosing me. For being patient with me on the days I\'m hard to love, and for believing in me on the days I forget how to believe in myself.',
+    imgCategory: 'hug'
+  },
+  {
+    type: 'message',
+    emoji: '🌷',
+    text: 'You make me want to be better — kinder, braver, softer. That\'s what you do to people. That\'s what you do to me.',
+    imgCategory: 'cuddle'
+  },
+  {
+    type: 'message',
+    emoji: '🏡',
+    text: 'You are my safest place. Somewhere along the way, home stopped being a place and quietly became you.',
+    imgCategory: 'pat'
+  },
+  {
+    type: 'message',
+    emoji: '✨',
+    text: 'Of all the luck I\'ve had in this life, you are the greatest. Of all the gifts, you\'re the one I\'d choose again and again — every single time.',
+    imgCategory: 'happy'
+  },
+  {
+    type: 'message',
+    emoji: '🎂',
+    text: 'Happy Birthday, my love. I hope this year hands you everything you dream of — and I promise to be right beside you through all of it. I love you, Tanu. More than words can hold. 💖',
+    imgCategory: 'kiss'
+  },
+  {
+    type: 'final',
+    title: 'Happy Birthday, Tanu',
+    text: 'Thank you for being you. I love you endlessly.',
+    btnText: 'Celebrate Again 🎉'
+  }
+];
+
+/* ============================================================
+   STATE & ELEMENTS
+   ============================================================ */
+let currentStep = 0;
+const app = document.getElementById('app');
+
+/* ============================================================
+   ANIME IMAGE FETCHER
+   ============================================================ */
+async function fetchAnimeImage(category) {
+  try {
+    const response = await fetch(`https://nekos.best/api/v2/${category}`);
+    const data = await response.json();
+    return data.results[0].url;
+  } catch (error) {
+    console.error("Failed to fetch anime image:", error);
+    return null; // Fallback to gradient
+  }
+}
+
+/* ============================================================
+   RENDER FUNCTION
+   ============================================================ */
+async function renderStep() {
+  const step = steps[currentStep];
+  app.innerHTML = '';
+
+  // Build the HTML based on step type
+  let html = '';
+  let hasImage = step.img || step.imgCategory;
+
+  if (step.type === 'intro') {
+    html = `
+      <div class="slide active">
+        <div class="card">
+          <div class="cake">${step.emoji}</div>
+          <p class="eyebrow">${step.title}</p>
+          <h1 class="name">${step.name}</h1>
+          <p class="msg-text" style="margin-top:10px;">${step.subtitle}</p>
+          <button class="btn-next" onclick="nextStep()">${step.btnText}</button>
+        </div>
+      </div>
+    `;
+  } 
+  
+  else if (step.type === 'question') {
+    html = `
+      <div class="slide active">
+        <div class="card">
+          <div class="photo-frame" id="photoFrame">
+            <img id="stepImg" src="" alt="Anime Couple" />
+          </div>
+          <p class="question-text">${step.question}</p>
+          <div class="btn-group" id="btnGroup">
+            <button class="btn btn-yes" onclick="handleAnswer('yes')">${step.yesText}</button>
+            <button class="btn btn-no" onclick="handleAnswer('no')">${step.noText}</button>
+          </div>
+          <p class="playful-msg" id="playfulMsg" style="display:none;"></p>
+        </div>
+      </div>
+    `;
+  } 
+  
+  else if (step.type === 'message') {
+    html = `
+      <div class="slide active">
+        <div class="card">
+          <div class="photo-frame" id="photoFrame">
+            <img id="stepImg" src="" alt="Anime Couple" />
+          </div>
+          <div class="msg-emoji" style="font-size:40px; line-height:1;">${step.emoji}</div>
+          <p class="msg-text">${step.text}</p>
+          <button class="btn-next" onclick="nextStep()">Next →</button>
+        </div>
+      </div>
+    `;
+  } 
+  
+  else if (step.type === 'final') {
+    html = `
+      <div class="slide active">
+        <div class="card">
+          <div class="cake" style="font-size:50px;">🎉</div>
+          <h1 class="name" style="font-size:60px;">${step.title}</h1>
+          <p class="msg-text" style="font-size:18px;">${step.text}</p>
+          <button class="btn-next" onclick="replay()">${step.btnText}</button>
+        </div>
+      </div>
+    `;
+  }
+
+  // Add progress dots
+  const totalSteps = steps.length;
+  let dotsHtml = '<div class="progress-dots">';
+  for (let i = 0; i < totalSteps; i++) {
+    dotsHtml += `<div class="dot ${i === currentStep ? 'active' : ''}"></div>`;
+  }
+  dotsHtml += '</div>';
+
+  app.innerHTML = html;
+  
+  // Append dots to the card, but not on intro or final
+  if (step.type !== 'intro' && step.type !== 'final') {
+    app.querySelector('.card').insertAdjacentHTML('beforeend', dotsHtml);
+  }
+
+  // Fetch and display the image if needed
+  if (hasImage) {
+    const imgEl = document.getElementById('stepImg');
+    if (imgEl) {
+      let imgUrl = step.img;
+      
+      // If it's an API category, fetch it
+      if (step.imgCategory) {
+        imgUrl = await fetchAnimeImage(step.imgCategory);
+      }
+      
+      if (imgUrl) {
+        imgEl.src = imgUrl;
+        imgEl.onload = () => {
+          imgEl.classList.add('loaded');
+        };
+        imgEl.onerror = () => {
+          console.warn("Image failed to load, using gradient background.");
+          // The CSS gradient will show through
+        };
+      }
+    }
+  }
+}
+
+/* ============================================================
+   INTERACTION LOGIC
+   ============================================================ */
+function nextStep() {
+  if (currentStep < steps.length - 1) {
+    currentStep++;
+    renderStep();
+    burst(); // Confetti on every new step
+  }
+}
+
+function handleAnswer(answer) {
+  const playfulMsg = document.getElementById('playfulMsg');
+  
+  if (answer === 'yes') {
+    // Correct answer! Move to next step after a short delay
+    playfulMsg.style.display = 'block';
+    playfulMsg.textContent = 'Correct! 💖';
+    playfulMsg.style.color = '#ffd6a5';
+    
+    setTimeout(() => {
+      nextStep();
+    }, 800);
+  } else {
+    // Playful "No" response
+    playfulMsg.style.display = 'block';
+    playfulMsg.textContent = 'Wrong answer! Try again 😉';
+    playfulMsg.style.color = '#ff8fb1';
+    
+    // Shake the No button
+    const noBtn = event.target;
+    noBtn.style.animation = 'shake 0.4s ease';
+    setTimeout(() => noBtn.style.animation = '', 400);
+    
+    // Move the No button slightly
+    const randomX = (Math.random() - 0.5) * 30;
+    const randomY = (Math.random() - 0.5) * 20;
+    noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+  }
+}
+
+function replay() {
+  currentStep = 0;
+  renderStep();
+  burst();
+}
+
+/* ============================================================
+   CONFETTI CANVAS
+   ============================================================ */
+const canvas = document.getElementById('fx');
+const ctx = canvas.getContext('2d');
+let particles = [];
+const COLORS = ['#ff6fa5', '#ffd166', '#7ee8fa', '#c084fc', '#fff1a8', '#ff8fb1', '#ffffff'];
+const DPR = Math.min(window.devicePixelRatio || 1, 2);
+
+function resize() {
+  canvas.width = window.innerWidth * DPR;
+  canvas.height = window.innerHeight * DPR;
+  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+}
+resize();
+window.addEventListener('resize', resize);
+
+function burst() {
+  const w = window.innerWidth;
+  const h = window.innerHeight;
+
+  for (let i = 0; i < 120; i++) {
+    const angle = -Math.PI / 2 + (Math.random() - 0.5) * Math.PI * 0.95;
+    const speed = 6 + Math.random() * 13;
+
+    particles.push({
+      x: w / 2 + (Math.random() - 0.5) * w * 0.3,
+      y: h * 0.85,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed,
+      size: 5 + Math.random() * 8,
+      color: COLORS[(Math.random() * COLORS.length) | 0],
+      rot: Math.random() * Math.PI * 2,
+      vr: (Math.random() - 0.5) * 0.32,
+      shape: Math.random() < 0.28 ? 'dot' : 'rect'
+    });
+  }
+}
+
+function drawParticle(p) {
+  ctx.save();
+  ctx.translate(p.x, p.y);
+  ctx.rotate(p.rot);
+  ctx.fillStyle = p.color;
+
+  if (p.shape === 'rect') {
+    ctx.fillRect(-p.size / 2, -p.size / 4, p.size, p.size / 2);
+  } else {
+    ctx.beginPath();
+    ctx.arc(0, 0, p.size / 2.3, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  ctx.restore();
+}
+
+function tick() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  for (let i = particles.length - 1; i >= 0; i--) {
+    const p = particles[i];
+    p.vy += 0.22;
+    p.vx *= 0.995;
+    p.vy *= 0.995;
+    p.x += p.vx;
+    p.y += p.vy;
+    p.rot += p.vr;
+
+    if (p.y > canvas.height + 80 || p.x < -120 || p.x > canvas.width + 120) {
+      particles.splice(i, 1);
+      continue;
+    }
+    drawParticle(p);
+  }
+  requestAnimationFrame(tick);
+}
+tick();
+
+/* ============================================================
+   FLOATING HEARTS BACKGROUND
+   ============================================================ */
+const heartLayer = document.getElementById('hearts');
+const GLYPHS = ['💗', '💖', '🌸', '✨', '💕', '🌷'];
+
+function spawnHeart() {
+  const h = document.createElement('div');
+  h.className = 'heart';
+  h.textContent = GLYPHS[(Math.random() * GLYPHS.length) | 0];
+
+  h.style.left = Math.random() * 100 + 'vw';
+  h.style.fontSize = (12 + Math.random() * 20) + 'px';
+  h.style.opacity = (0.2 + Math.random() * 0.4).toFixed(2);
+  h.style.animationDuration = (12 + Math.random() * 10) + 's';
+
+  heartLayer.appendChild(h);
+  setTimeout(() => h.remove(), 22000);
+}
+
+for (let i = 0; i < 6; i++) setTimeout(spawnHeart, i * 500);
+setInterval(spawnHeart, 1200);
+
+/* ============================================================
+   SHAKE ANIMATION FOR NO BUTTON
+   ============================================================ */
+const styleSheet = document.createElement("style");
+styleSheet.textContent = `
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    75% { transform: translateX(8px); }
+  }
+`;
+document.head.appendChild(styleSheet);
+
+/* ============================================================
+   INITIALIZE
+   ============================================================ */
+renderStep();
+</script>
+</body>
+</html>
